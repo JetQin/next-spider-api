@@ -2,36 +2,36 @@ import os
 from typing import List
 from fastapi import APIRouter
 from fastapi import HTTPException
-from domain.users import Users, User_Pydantic, UserIn_Pydantic
+from domain.users import Users, UserDao, UserDto
 from pydantic import BaseModel
 
-router = APIRouter(prefix="/user", tags=["user"])
+router = APIRouter(tags=["user"])
 
 
 class Status(BaseModel):
     message: str
 
 
-@router.get("/users", response_model=List[User_Pydantic])
+@router.get("/users", response_model=List[UserDao])
 async def get_users():
-    return await User_Pydantic.from_queryset(Users.all())
+    return await UserDao.from_queryset(Users.all())
 
 
-@router.post("/users", response_model=User_Pydantic)
-async def create_user(user: UserIn_Pydantic):
+@router.post("/users", response_model=UserDao)
+async def create_user(user: UserDto):
     user_obj = await Users.create(**user.model_dump(exclude_unset=True))
-    return await User_Pydantic.from_tortoise_orm(user_obj)
+    return await UserDao.from_tortoise_orm(user_obj)
 
 
-@router.get("/user/{user_id}", response_model=User_Pydantic)
+@router.get("/user/{user_id}", response_model=UserDao)
 async def get_user(user_id: int):
-    return await User_Pydantic.from_queryset_single(Users.get(id=user_id))
+    return await UserDao.from_queryset_single(Users.get(id=user_id))
 
 
-@router.put("/user/{user_id}", response_model=User_Pydantic)
-async def update_user(user_id: int, user: UserIn_Pydantic):
+@router.put("/user/{user_id}", response_model=UserDao)
+async def update_user(user_id: int, user: UserDto):
     await Users.filter(id=user_id).update(**user.model_dump(exclude_unset=True))
-    return await User_Pydantic.from_queryset_single(Users.get(id=user_id))
+    return await UserDao.from_queryset_single(Users.get(id=user_id))
 
 
 @router.delete("/user/{user_id}", response_model=Status)

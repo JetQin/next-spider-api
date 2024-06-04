@@ -30,5 +30,5 @@ class Users(models.Model):
         exclude = ["password_hash"]
 
 
-User_Pydantic = pydantic_model_creator(Users, name="User")
-UserIn_Pydantic = pydantic_model_creator(Users, name="UserIn", exclude_readonly=True)
+UserDao = pydantic_model_creator(Users, name="UserDao")
+UserDto = pydantic_model_creator(Users, name="UserDto", exclude_readonly=True)

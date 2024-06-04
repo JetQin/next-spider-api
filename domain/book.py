@@ -12,5 +12,5 @@ class Book(models.Model):
     modified_at = fields.DatetimeField(auto_now=True)
 
 
-Book_Pydantic = pydantic_model_creator(Book, name="Book")
-BookDto_Pydantic = pydantic_model_creator(Book, name="BookDto", exclude_readonly=True)
+BookDao = pydantic_model_creator(Book, name="BookDao")
+BookDto = pydantic_model_creator(Book, name="BookDto", exclude_readonly=True)

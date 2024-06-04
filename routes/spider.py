@@ -5,7 +5,7 @@ from scrapy.utils.project import get_project_settings
 from fastapi import APIRouter, BackgroundTasks
 from crawler.spiders.book_spider import BookSpider
 
-router = APIRouter(prefix="/spider", tags=["spider"])
+router = APIRouter(tags=["spider"])
 
 
 def create_task(domain: str):

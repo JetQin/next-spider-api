@@ -35,5 +35,5 @@ class Task(models.Model):
         return self.name
 
 
-Task_Pydantic = pydantic_model_creator(Task, name="Task")
-TaskDto_Pydantic = pydantic_model_creator(Task, name="TaskDto", exclude_readonly=True)
+TaskDao = pydantic_model_creator(Task, name="TaskDao")
+TaskDto = pydantic_model_creator(Task, name="TaskDto", exclude_readonly=True)

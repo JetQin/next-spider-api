@@ -13,7 +13,7 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     async with RegisterTortoise(
         app,
         db_url="sqlite://data/spider.db",
-        modules={"domain": ["domain.users", "domain.task", "domain.book"]},
+        modules={"domain": ["domain.users", "domain.task", "domain.book", "domain.export"]},
         generate_schemas=True,
         add_exception_handlers=True,
     ):
